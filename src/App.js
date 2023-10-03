@@ -1,24 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import { useEffect, useState } from "react";
+import Cards from "./components/cards/Cards"
 
 function App() {
+
+  const url = "https://my-app-three-flame.vercel.app/data.json"
+
+  const [ data, setData ] = useState(null)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url)
+        if(!response.ok) {
+          throw new Error ("No se pudo obtener la data")
+        }
+        const result = await response.json()
+        setData(result.datos)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchData()
+  }, [])
+
+  console.log(data)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Cards data={data}/>
+    </>
   );
 }
 
