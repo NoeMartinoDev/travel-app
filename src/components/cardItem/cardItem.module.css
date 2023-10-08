@@ -1,0 +1,9 @@
+.titulo {
+    background-color: blue;
+    color: white;
+    font-size: 10px;
+  }
+
+.titulo:hover{
+  background-color: rgb(73, 12, 124);
+}

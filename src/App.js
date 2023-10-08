@@ -1,6 +1,8 @@
-import './App.css';
 import { useEffect, useState } from "react";
-import Cards from "./components/cards/Cards"
+
+import NavBar from "./components/navBar/NavBar";
+import Cards from "./components/cards/Cards";
+import Footer from "./components/footer/Footer";
 
 function App() {
 
@@ -24,11 +26,11 @@ function App() {
     fetchData()
   }, [])
 
-  console.log(data)
-
   return (
     <>
+      <NavBar />
       <Cards data={data}/>
+      <Footer />
     </>
   );
 }
