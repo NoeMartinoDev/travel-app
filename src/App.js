@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
 
-import NavBar from "./components/navBar/NavBar";
+import NavigationBar from "./components/navBar/NavigationBar";
 import Cards from "./components/cards/Cards";
+import FormExp from "./components/form/FormExp";
+import Login from "./components/login/Login";
+import Detail from "./components/detail/Detail";
 import Footer from "./components/footer/Footer";
 
 function App() {
@@ -28,8 +32,13 @@ function App() {
 
   return (
     <>
-      <NavBar />
-      <Cards data={data}/>
+      <NavigationBar />
+      <Routes>
+        <Route path="" element={<Cards data={data}/>}/>
+        <Route path="/tuexperiencia" element={<FormExp />}/>
+        <Route path="/ingresar" element={<Login />}/>
+        <Route path="/detalle/:id" element={<Detail data={data}/>}></Route>
+      </Routes>
       <Footer />
     </>
   );

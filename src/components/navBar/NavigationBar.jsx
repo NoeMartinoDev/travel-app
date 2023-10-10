@@ -1,11 +1,12 @@
 import React from "react";
 import { Nav, Navbar, Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-const NavBar = () => {
+const NavigationBar = () => {
   return (
     <Navbar expand="lg" className="bg-info">
       <Container>
-        <Navbar.Brand href="#home">
+        <Link to="/" className="nav-link"><Navbar.Brand>
           <img
             alt=""
             src="logo.png"
@@ -14,11 +15,11 @@ const NavBar = () => {
             className="d-inline-block align-top"
           />{" "}
           Viajemos
-        </Navbar.Brand>
+        </Navbar.Brand></Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#link">Creá tu experiencia</Nav.Link>
+            <Link to="/tuexperiencia" className="nav-link">Creá tu experiencia</Link>
           </Nav>
         </Navbar.Collapse>
         <Form>
@@ -37,10 +38,10 @@ const NavBar = () => {
             </Col>
           </Row>
         </Form>
-        <Nav.Link href="#link">Ingresar</Nav.Link>
+        <Link to="/ingresar" className="nav-link" style={{marginLeft: "15px"}}>Ingresar</Link>
       </Container>
     </Navbar>
   );
 };
 
-export default NavBar;
+export default NavigationBar;

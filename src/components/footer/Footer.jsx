@@ -11,9 +11,9 @@ const Footer = () => {
               Copyright © 2023 Viajemos
             </Nav.Link>
             <div className="d-flex">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#features">Features</Nav.Link>
-              <Nav.Link href="#pricing">Pricing</Nav.Link>
+              <Nav.Link href="https://www.facebook.com"><i className="bi bi-facebook"></i></Nav.Link>
+              <Nav.Link href="https://www.instagram.com"><i className="bi bi-instagram"></i></Nav.Link>
+              <Nav.Link href="https://www.gmail.com"><i class="bi bi-envelope"></i></Nav.Link>
             </div>
           </Nav>
         </Container>

@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 //Inline
 // const titulo = {
@@ -16,7 +17,7 @@ const CardItem = (props) => {
         <Card.Title>{props.title}</Card.Title>
         <Card.Text>{props.city}</Card.Text>
         <Card.Text>{props.location}</Card.Text>
-        <Button variant="secondary">Ver más</Button>
+        <Button variant="secondary"><Link to={`/detalle/${props.id}`} className="nav-link">Ver más</Link></Button>
       </Card.Body>
     </Card>
   )

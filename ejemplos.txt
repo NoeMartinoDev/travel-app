@@ -1,0 +1,18 @@
+Ternario
+
+condicion ? (
+si es true codigo que se ejecuta
+) : (
+si es false codigo que se ejecuta
+)
+
+condicion ? codigo si es true : codigo si es false
+
+URL BASE / DOMINIO / localhost:3000 /
+mipagina.com
+Rutas
+mipagina.com/home
+mipagina.com/perfiles
+Rutas dinámicas
+mipagina.com/perfiles/luciana
+mipagina.com/perfiles/luis
