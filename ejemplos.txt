@@ -16,3 +16,11 @@ mipagina.com/perfiles
 Rutas dinámicas
 mipagina.com/perfiles/luciana
 mipagina.com/perfiles/luis
+
+Regexs o expresiones regulares:
+Se usan en nuestra función validadora. Se googlean (no hay que saberlas) y se copian y pegan.
+Si necesito validar lo contrario agrego el ! antes de la expresión
+Usamos el .test y pasamos entre () lo que queremos validar
+Email válido: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+Incluye números y símbolos: /^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]*$/
+Formato de sólo números: /^[0-9]*$/
