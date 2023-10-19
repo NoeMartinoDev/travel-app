@@ -4,7 +4,7 @@ import { Container, Row } from "react-bootstrap";
 
 const Cards = (props) => {
   return (
-    <Container>
+    <Container style={{marginBottom: "60px"}}>
       <Row>
         {props.data ? (
           props.data.map((item) => (

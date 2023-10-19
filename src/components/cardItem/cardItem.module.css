@@ -1,9 +1,17 @@
+/*
+Este es un archivo de ejemplo de module.css
+Si quiero utilizar las clases aquí creadas debo importar este archivo en mi componente:
+import style from "./cardItem.module.css"
+y lo utilizo en las etiquetas:
+className={style.titulo}
+*/
+
 .titulo {
     background-color: blue;
     color: white;
     font-size: 10px;
   }
 
-.titulo:hover{
+.titulo:hover {
   background-color: rgb(73, 12, 124);
 }

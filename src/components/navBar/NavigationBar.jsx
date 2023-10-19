@@ -2,7 +2,13 @@ import React from "react";
 import { Nav, Navbar, Container, Row, Col, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const NavigationBar = () => {
+const NavigationBar = (props) => {
+
+  const handleClick = () => {
+    props.setIsLoged(false)
+    localStorage.removeItem("isLoged")
+  }
+
   return (
     <Navbar expand="lg" className="bg-info">
       <Container>
@@ -38,7 +44,9 @@ const NavigationBar = () => {
             </Col>
           </Row>
         </Form>
-        <Link to="/ingresar" className="nav-link" style={{marginLeft: "15px"}}>Ingresar</Link>
+        {props.isLoged ?
+        <Nav.Link onClick={handleClick} style={{marginLeft: "15px"}}>Cerrar sesión</Nav.Link>
+        : <Link to="/ingresar" className="nav-link" style={{marginLeft: "15px"}}>Ingresar</Link>}
       </Container>
     </Navbar>
   );
