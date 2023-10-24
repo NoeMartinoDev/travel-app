@@ -36,10 +36,10 @@ function App() {
 
   return (
     <>
-      <NavigationBar isLoged={isLoged} setIsLoged={setIsLoged}/>
+      <NavigationBar isLoged={isLoged} setIsLoged={setIsLoged} data={data} setData={setData}/>
       <Routes>
         <Route path="" element={<Cards data={data}/>}/>
-        <Route path="/tuexperiencia" element={<FormExp />}/>
+        <Route path="/tuexperiencia" element={<FormExp data={data} setData={setData} isLoged={isLoged}/>}/>
         <Route path="/ingresar" element={<Login isLoged={isLoged} setIsLoged={setIsLoged}/>}/>
         <Route path="/detalle/:id" element={<Detail data={data}/>}></Route>
       </Routes>

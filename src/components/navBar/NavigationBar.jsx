@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { Nav, Navbar, Container, Row, Col, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const NavigationBar = (props) => {
 
+  const [ exp, setExp ] = useState("")
+
   const handleClick = () => {
     props.setIsLoged(false)
     localStorage.removeItem("isLoged")
   }
+
+  const handleChange = (event) => {
+    setExp(event.target.value)
+  }
+
+  const handleSearch = (event) => {
+    event.preventDefault()
+    const results = props.data.filter( element => element.city === exp || element.location === exp)
+    console.log(results)
+    props.setData(results)
+  }
+
 
   return (
     <Navbar expand="lg" className="bg-info">
@@ -25,7 +39,7 @@ const NavigationBar = (props) => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Link to="/tuexperiencia" className="nav-link">Creá tu experiencia</Link>
+            <Link to="/tuexperiencia" className="nav-link">Sumá tu experiencia</Link>
           </Nav>
         </Navbar.Collapse>
         <Form>
@@ -35,10 +49,12 @@ const NavigationBar = (props) => {
                 type="text"
                 placeholder="Buscá tu próximo destino"
                 className=" mr-sm-2"
+                value={exp}
+                onChange={handleChange}
               />
             </Col>
             <Col xs="auto">
-              <Button type="submit" variant="secondary">
+              <Button type="submit" variant="secondary" onClick={handleSearch}>
                 Buscar
               </Button>
             </Col>

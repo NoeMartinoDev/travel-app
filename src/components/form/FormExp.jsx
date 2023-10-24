@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const validate = (form) => {
     const errors = {}
@@ -12,7 +13,9 @@ const validate = (form) => {
     return errors
 }
 
-const FormExp = () => {
+const FormExp = (props) => {
+
+    const navigate = useNavigate()
 
     const [ form, setForm ] = useState({
         title: "",
@@ -40,11 +43,27 @@ const FormExp = () => {
         setErrors(validate({...form, [ property ] : value}))
     }
 
+  //   const form = {
+  //     title: "djfhdsjf",
+  //     user: "Noe",
+  //     city: "Buenos Aires",
+  //     location: "Buenos Aires",
+  //     description: "grgehtehyrjry",
+  //     image: "https",
+  //     id: 7,
+  //     date: 2023
+  // }
+
     const handleSubmit = (event) => {
         event.preventDefault()
+        if (Object.keys(errors).length === 0) {
+            props.setData([...props.data, {...form, id: props.data.length + 1, date: new Date().getFullYear()}])
+            navigate("/")
+        } else alert ("Completar todos los campos")
     }
 
     return (
+      props.isLoged ?
         <Form onSubmit={handleSubmit} style={{width: "60%", margin: "10px auto", marginBottom: "80px"}}>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="title">Título:</Form.Label>
@@ -77,7 +96,8 @@ const FormExp = () => {
             {errors.image && <Form.Text>{errors.image}</Form.Text>}
           </Form.Group>
           <Button type="submit" variant="secondary">Crear</Button>
-        </Form>
+        </Form> :
+        <p>Debes estar logueado para dejar tu experiencia de viaje</p>
     )
 }
 
@@ -88,5 +108,4 @@ export default FormExp;
 // Salta
 // Romina
 // Pasamos en Salta las vacaciones de invierno, y si bien fueron 5 días, sentí que se pasaron muy rápido y que hubiera necesitado más tiempo para recorrer todas las atracciones de la provincia, por su inmensidad y hermosura. Recorrimos los valles Calchaquíes con sus quebradas y cerros multicolores. Pasamos por las Salinas Grandes y pudimos sacarnos las típicas y divertidas fotos. Paseamos por Salta Capital y ascendimos al Cerro San Bernardo con el teleférico, apreciando la belleza de la ciudad. Me quedé con ganas de volver.
-
 // https://th.bing.com/th/id/OIP.baheit0CDROm3a3tanp9jAHaE7?pid=ImgDet&w=640&h=426&rs=1
