@@ -2,7 +2,7 @@ import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { Card, Button, Row, Col } from "react-bootstrap";
 
-const Detail = (props) => {
+const Detail = ( {data} ) => {
 
     const cardStyle = {
         width: "80%",
@@ -14,7 +14,7 @@ const Detail = (props) => {
     
     const { id } = useParams();
     
-    const dataDetail = props.data?.find( item => item.id === Number(id))
+    const dataDetail = data?.find( item => item.id === Number(id))
 
     return (
       <Card style={cardStyle}>

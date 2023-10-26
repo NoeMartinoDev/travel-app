@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import { Nav, Navbar, Container, Row, Col, Form, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const NavigationBar = (props) => {
 
+  const location = useLocation()
+  const navigate = useNavigate()
+
   const [ exp, setExp ] = useState("")
+
+  const normalice = (text) => {
+    return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+  }
 
   const handleClick = () => {
     props.setIsLoged(false)
@@ -17,16 +24,26 @@ const NavigationBar = (props) => {
 
   const handleSearch = (event) => {
     event.preventDefault()
-    const results = props.data.filter( element => element.city === exp || element.location === exp)
-    console.log(results)
-    props.setData(results)
+    if (exp === "") alert ("Escribí un lugar para buscarlo")
+    else {
+    const results = props.data.filter( (element) => {
+      return normalice(element.city) === normalice(exp) || normalice(element.location) === normalice(exp)
+    })
+    props.setFilteredData(results)
+    setExp("")
+    if (results.length === 0) alert ("No hay resultados")
+    if(location.pathname !== "/") navigate("/")
+  }
   }
 
+  const handleClean = () => {
+    props.setFilteredData([])
+  }
 
   return (
     <Navbar expand="lg" className="bg-info">
       <Container>
-        <Link to="/" className="nav-link"><Navbar.Brand>
+        <Link to="/" className="nav-link" onClick={handleClean}><Navbar.Brand>
           <img
             alt=""
             src="logo.png"
