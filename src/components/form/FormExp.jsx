@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const validate = (form) => {
     const errors = {}
@@ -54,10 +55,20 @@ const FormExp = (props) => {
   //     date: 2023
   // }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
         if (Object.keys(errors).length === 0) {
-            props.setData([...props.data, {...form, id: props.data.length + 1, date: new Date().getFullYear()}])
+            //props.setData([...props.data, {...form, id: props.data.length + 1, date: new Date().getFullYear()}])
+            try {
+              const response = await axios.post("http://localhost:3001/travels", form)
+              if(response.status > 400) {
+                throw new Error ("No se pudo obtener la data")
+              } else {
+                props.setData([...props.data, {...response.data}])
+              }
+            } catch (error) {
+              console.log(error)
+            }
             navigate("/")
         } else alert ("Completar todos los campos")
     }

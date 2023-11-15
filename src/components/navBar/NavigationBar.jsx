@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Nav, Navbar, Container, Row, Col, Form, Button } from "react-bootstrap";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const NavigationBar = (props) => {
 
@@ -8,10 +9,6 @@ const NavigationBar = (props) => {
   const navigate = useNavigate()
 
   const [ exp, setExp ] = useState("")
-
-  const normalice = (text) => {
-    return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-  }
 
   const handleClick = () => {
     props.setIsLoged(false)
@@ -22,17 +19,28 @@ const NavigationBar = (props) => {
     setExp(event.target.value)
   }
 
-  const handleSearch = (event) => {
+  const handleSearch = async (event) => {
     event.preventDefault()
     if (exp === "") alert ("Escribí un lugar para buscarlo")
     else {
-    const results = props.data.filter( (element) => {
-      return normalice(element.city) === normalice(exp) || normalice(element.location) === normalice(exp)
-    })
-    props.setFilteredData(results)
-    setExp("")
-    if (results.length === 0) alert ("No hay resultados")
-    if(location.pathname !== "/") navigate("/")
+    // const results = props.data.filter( (element) => {
+    //   return normalice(element.city) === normalice(exp) || normalice(element.location) === normalice(exp)
+    // })
+    // props.setFilteredData(results)
+    // setExp("")
+    // if (results.length === 0) alert ("No hay resultados")
+    // if(location.pathname !== "/") navigate("/")
+      try {
+        const response = await axios(`http://localhost:3001/travels?name=${exp}`)
+        if(response.data.error) alert ("No hay resultados")
+        else {
+          props.setFilteredData(response.data)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+      setExp("")
+      if(location.pathname !== "/") navigate("/")
   }
   }
 

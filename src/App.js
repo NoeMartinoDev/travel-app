@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import axios from "axios";
 
 import NavigationBar from "./components/navBar/NavigationBar";
 import Cards from "./components/cards/Cards";
@@ -10,8 +11,6 @@ import Footer from "./components/footer/Footer";
 
 function App() {
 
-  const url = "https://my-app-three-flame.vercel.app/data.json"
-
   const [ data, setData ] = useState(null)
 
   const [ isLoged, setIsLoged ] = useState(false)
@@ -19,19 +18,18 @@ function App() {
   const [ filteredData, setFilteredData ] = useState([])
 
   useEffect(() => {
-    const fetchData = async () => {
+    const axiosData = async () => {
       try {
-        const response = await fetch(url)
-        if(!response.ok) {
+        const response = await axios("http://localhost:3001/travels")
+        if(response.status > 400) {
           throw new Error ("No se pudo obtener la data")
         }
-        const result = await response.json()
-        setData(result.datos)
+        setData(response.data)
       } catch (error) {
         console.log(error)
       }
     }
-    fetchData()
+    axiosData()
     const loginStorage = localStorage.getItem("isLoged")
     loginStorage && setIsLoged(true)
   }, [])
