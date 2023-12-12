@@ -8,6 +8,7 @@ import FormExp from "./components/form/FormExp";
 import Login from "./components/login/Login";
 import Detail from "./components/detail/Detail";
 import Footer from "./components/footer/Footer";
+import Register from "./components/register/Register";
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
         <Route path="/tuexperiencia" element={<FormExp data={data} setData={setData} isLoged={isLoged}/>}/>
         <Route path="/ingresar" element={<Login isLoged={isLoged} setIsLoged={setIsLoged}/>}/>
         <Route path="/detalle/:id" element={<Detail data={data}/>}></Route>
+        <Route path="/registro" element={<Register/>}></Route>
       </Routes>
       <Footer />
     </>

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Form, Button } from "react-bootstrap";
 import { useNavigate, Link } from 'react-router-dom';
+import axios from "axios";
 
 const validate = (form) => {
     const errors = {}
+    if(!form.name) errors.name = "Completar nombre"
     if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(form.email)) errors.email = "Correo electrónico inválido"
     if(!form.email) errors.email = "Completar correo electrónico"
     if(form.password.length < 8) errors.password = "Contraseña inválida"
@@ -11,27 +13,23 @@ const validate = (form) => {
     return errors
 }
 
-const Login = ( props ) => {
+const Register = ( props ) => {
 
   const navigate = useNavigate()
     
-    const [ form, setForm] = useState({
+    const [ form, setForm ] = useState({
+        name: "",
         email: "",
         password: ""
     })
 
     const [ errors, setErrors ] = useState({
+        name: "",
         email: "",
         password: ""
     })
 
     const handleChange = (event) => {
-        // if(event.target.name === "email") {
-        //     setForm({...form, email: event.target.value})
-        // }
-        // if(event.target.name === "password") {
-        //     setForm({...form, password: event.target.value})
-        // }
 
         const property = event.target.name
         const value = event.target.value
@@ -40,20 +38,33 @@ const Login = ( props ) => {
         setErrors(validate({...form, [ property ] : value}))
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
         if (Object.keys(errors).length === 0) {
-          if(form.email === "noe@mail.com" && form.password === "12345678") {
-            alert("Login exitoso")
-            props.setIsLoged(true)
-            localStorage.setItem("isLoged", true)
-            navigate("/")
-          } else alert("Datos incorrectos")
+            try {
+                const response = await axios.post("http://localhost:3001/users/register", form)
+                if(response.data === "User alredy exits") {
+                    alert("Ya estás registrado/a con ese correo correo electrónico")
+                    navigate("/ingresar")
+                } else {
+                    alert("Registro exitoso")
+                    navigate("/ingresar")
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        } else {
+            alert("Completar todos los campos")
         }
     }
 
     return (
         <Form onSubmit={handleSubmit} style={{width: "40%", margin: "30px auto"}}>
+            <Form.Group className="mb-3">
+            <Form.Label htmlFor="name">Nombre:</Form.Label>
+            <Form.Control type="text" name="name" value={form.name} onChange={handleChange}></Form.Control>
+            {errors.name && <Form.Text>{errors.name}</Form.Text>}
+          </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="email">Correo electrónico:</Form.Label>
             <Form.Control type="text" name="email" value={form.email} onChange={handleChange}></Form.Control>
@@ -64,12 +75,12 @@ const Login = ( props ) => {
             <Form.Control type="text" name="password" value={form.password} onChange={handleChange}></Form.Control>
             {errors.password && <Form.Text>{errors.password}</Form.Text>}
           </Form.Group>
-          <Button type="submit" variant="secondary">Ingresar</Button>
+          <Button type="submit" variant="secondary">Registrarse</Button>
           <Form.Group className="mb-3">
-            <Form.Label>No tenés usuario? <Link to="/registro">Registrate</Link></Form.Label>
+            <Form.Label>Ya tenés usuario? <Link to="/ingresar">Ingresá</Link></Form.Label>
           </Form.Group>
         </Form>
       )
 }
 
-export default Login;
+export default Register;
