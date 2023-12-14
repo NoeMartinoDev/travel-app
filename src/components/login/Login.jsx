@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button } from "react-bootstrap";
 import { useNavigate, Link } from 'react-router-dom';
+import axios from "axios";
 
 const validate = (form) => {
     const errors = {}
@@ -40,15 +41,30 @@ const Login = ( props ) => {
         setErrors(validate({...form, [ property ] : value}))
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
         if (Object.keys(errors).length === 0) {
-          if(form.email === "noe@mail.com" && form.password === "12345678") {
-            alert("Login exitoso")
-            props.setIsLoged(true)
-            localStorage.setItem("isLoged", true)
-            navigate("/")
-          } else alert("Datos incorrectos")
+          // if(form.email === "noe@mail.com" && form.password === "12345678") {
+          //   alert("Login exitoso")
+          //   props.setIsLoged(true)
+          //   localStorage.setItem("isLoged", true)
+          //   navigate("/")
+          // } else alert("Datos incorrectos")
+          try {
+            const response = await axios.post("http://localhost:3001/users/login", form)
+            if(response.data.error === "User not found") {
+              alert("No estás registrado, por favor, registrate para continuar")
+              navigate("/registro")
+            } else if (response.data.error === "Incorrect data") {
+              alert("Datos incorrectos")
+            } else {
+              props.setUser(response.data)
+              localStorage.setItem("isLoged", JSON.stringify(response.data))
+              navigate("/")
+            }
+          } catch (error) {
+            console.log(error)
+          }
         }
     }
 
@@ -66,7 +82,7 @@ const Login = ( props ) => {
           </Form.Group>
           <Button type="submit" variant="secondary">Ingresar</Button>
           <Form.Group className="mb-3">
-            <Form.Label>No tenés usuario? <Link to="/registro">Registrate</Link></Form.Label>
+            <Form.Label>¿No tenés usuario? <Link to="/registro">Registrate</Link></Form.Label>
           </Form.Group>
         </Form>
       )

@@ -11,7 +11,7 @@ const NavigationBar = (props) => {
   const [ exp, setExp ] = useState("")
 
   const handleClick = () => {
-    props.setIsLoged(false)
+    props.setUser(null)
     localStorage.removeItem("isLoged")
   }
 
@@ -85,7 +85,7 @@ const NavigationBar = (props) => {
             </Col>
           </Row>
         </Form>
-        {props.isLoged ?
+        {props.user ?
         <Nav.Link onClick={handleClick} style={{marginLeft: "15px"}}>Cerrar sesión</Nav.Link>
         : <Link to="/ingresar" className="nav-link" style={{marginLeft: "15px"}}>Ingresar</Link>}
       </Container>

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Card, Button, Row, Col } from "react-bootstrap";
+import axios from "axios";
 
-const Detail = ( {data} ) => {
+const Detail = () => {
 
     const cardStyle = {
         width: "80%",
@@ -14,11 +15,28 @@ const Detail = ( {data} ) => {
     
     const { id } = useParams();
     
-    const dataDetail = data?.find( item => item.id === Number(id))
+    //const dataDetail = data?.find( item => item.id === Number(id))
+
+    const [ dataDetail, setDataDetail ] = useState(null)
+
+    useEffect(() => {
+      const axiosData = async () => {
+        try {
+          const response = await axios(`http://localhost:3001/travels/${id}`)
+          if(response.status > 400) {
+            throw new Error ("No se pudo obtener la data")
+          }
+          setDataDetail(response.data)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      axiosData()
+    })
 
     return (
       <Card style={cardStyle}>
-        <Card.Header>{dataDetail?.user} - {dataDetail?.date}</Card.Header>
+        <Card.Header>{dataDetail?.User.name} - {dataDetail?.date}</Card.Header>
         <Row>
           <Col>
             <Card.Body>

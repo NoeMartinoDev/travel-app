@@ -6,11 +6,10 @@ import axios from "axios";
 const validate = (form) => {
     const errors = {}
     if(!form.title) errors.title = "Completar el título"
-    if(!form.user) errors.user = "Completar tu nombre"
     if(!form.city) errors.city = "Completar la ciudad"
     if(!form.location) errors.location = "Completar la provincia"
     if(!form.description) errors.description = "Completar la descripción"
-    if(!form.image) errors.image = "Completar la imagen"
+    if(!form.image) errors.image = "Cargar url de la imagen"
     return errors
 }
 
@@ -20,7 +19,7 @@ const FormExp = (props) => {
 
     const [ form, setForm ] = useState({
         title: "",
-        user: "",
+        UserId: props.user ? props.user.id : null,
         city: "",
         location: "",
         description: "",
@@ -29,7 +28,6 @@ const FormExp = (props) => {
 
     const [ errors, setErrors ] = useState({
         title: "",
-        user: "",
         city: "",
         location: "",
         description: "",
@@ -44,17 +42,6 @@ const FormExp = (props) => {
         setErrors(validate({...form, [ property ] : value}))
     }
 
-  //   const form = {
-  //     title: "djfhdsjf",
-  //     user: "Noe",
-  //     city: "Buenos Aires",
-  //     location: "Buenos Aires",
-  //     description: "grgehtehyrjry",
-  //     image: "https",
-  //     id: 7,
-  //     date: 2023
-  // }
-
     const handleSubmit = async (event) => {
         event.preventDefault()
         if (Object.keys(errors).length === 0) {
@@ -64,27 +51,29 @@ const FormExp = (props) => {
               if(response.status > 400) {
                 throw new Error ("No se pudo obtener la data")
               } else {
-                props.setData([...props.data, {...response.data}])
+                //props.setData([...props.data, {...response.data}])
+                alert("Posteo creado exitosamente")
               }
+              navigate("/")
             } catch (error) {
               console.log(error)
             }
-            navigate("/")
-        } else alert ("Completar todos los campos")
+        } else {
+          alert ("Completar todos los campos")
+        }
     }
 
     return (
-      props.isLoged ?
+      props.user ?
         <Form onSubmit={handleSubmit} style={{width: "60%", margin: "10px auto", marginBottom: "80px"}}>
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="user">Nombre:</Form.Label>
+            <Form.Control type="text" name="user" value={props.user.name} readOnly></Form.Control>
+          </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="title">Título:</Form.Label>
             <Form.Control type="text" name="title" value={form.title} onChange={handleChange}></Form.Control>
             {errors.title && <Form.Text>{errors.title}</Form.Text>}
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label htmlFor="user">Nombre:</Form.Label>
-            <Form.Control type="text" name="user" value={form.user} onChange={handleChange}></Form.Control>
-            {errors.user && <Form.Text>{errors.user}</Form.Text>}
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="city">Ciudad:</Form.Label>

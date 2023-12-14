@@ -14,7 +14,7 @@ function App() {
 
   const [ data, setData ] = useState(null)
 
-  const [ isLoged, setIsLoged ] = useState(false)
+  const [ user, setUser ] = useState(null)
 
   const [ filteredData, setFilteredData ] = useState([])
 
@@ -32,16 +32,16 @@ function App() {
     }
     axiosData()
     const loginStorage = localStorage.getItem("isLoged")
-    loginStorage && setIsLoged(true)
-  }, [])
+    loginStorage && setUser(JSON.parse(loginStorage))
+  }, [data])
 
   return (
     <>
-      <NavigationBar isLoged={isLoged} setIsLoged={setIsLoged} data={data} setFilteredData={setFilteredData}/>
+      <NavigationBar user={user} setUser={setUser} data={data} setFilteredData={setFilteredData}/>
       <Routes>
         <Route path="" element={<Cards data={filteredData.length ? filteredData : data}/>}/>
-        <Route path="/tuexperiencia" element={<FormExp data={data} setData={setData} isLoged={isLoged}/>}/>
-        <Route path="/ingresar" element={<Login isLoged={isLoged} setIsLoged={setIsLoged}/>}/>
+        <Route path="/tuexperiencia" element={<FormExp data={data} setData={setData} user={user}/>}/>
+        <Route path="/ingresar" element={<Login user={user} setUser={setUser}/>}/>
         <Route path="/detalle/:id" element={<Detail data={data}/>}></Route>
         <Route path="/registro" element={<Register/>}></Route>
       </Routes>

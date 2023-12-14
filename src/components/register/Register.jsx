@@ -51,7 +51,7 @@ const Register = ( props ) => {
                     navigate("/ingresar")
                 }
             } catch (error) {
-                console.log(error)
+                console.log(error.message)
             }
         } else {
             alert("Completar todos los campos")
@@ -61,23 +61,23 @@ const Register = ( props ) => {
     return (
         <Form onSubmit={handleSubmit} style={{width: "40%", margin: "30px auto"}}>
             <Form.Group className="mb-3">
-            <Form.Label htmlFor="name">Nombre:</Form.Label>
-            <Form.Control type="text" name="name" value={form.name} onChange={handleChange}></Form.Control>
-            {errors.name && <Form.Text>{errors.name}</Form.Text>}
+                <Form.Label htmlFor="name">Nombre:</Form.Label>
+                <Form.Control type="text" name="name" value={form.name} onChange={handleChange}></Form.Control>
+                {errors.name && <Form.Text>{errors.name}</Form.Text>}
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="email">Correo electrónico:</Form.Label>
-            <Form.Control type="text" name="email" value={form.email} onChange={handleChange}></Form.Control>
-            {errors.email && <Form.Text>{errors.email}</Form.Text>}
+                <Form.Label htmlFor="email">Correo electrónico:</Form.Label>
+                <Form.Control type="text" name="email" value={form.email} onChange={handleChange}></Form.Control>
+                {errors.email && <Form.Text>{errors.email}</Form.Text>}
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="password">Contraseña:</Form.Label>
-            <Form.Control type="text" name="password" value={form.password} onChange={handleChange}></Form.Control>
-            {errors.password && <Form.Text>{errors.password}</Form.Text>}
+                <Form.Label htmlFor="password">Contraseña:</Form.Label>
+                <Form.Control type="text" name="password" value={form.password} onChange={handleChange}></Form.Control>
+                {errors.password && <Form.Text>{errors.password}</Form.Text>}
           </Form.Group>
           <Button type="submit" variant="secondary">Registrarse</Button>
           <Form.Group className="mb-3">
-            <Form.Label>Ya tenés usuario? <Link to="/ingresar">Ingresá</Link></Form.Label>
+                <Form.Label>¿Ya tenés usuario? <Link to="/ingresar">Ingresá</Link></Form.Label>
           </Form.Group>
         </Form>
       )
