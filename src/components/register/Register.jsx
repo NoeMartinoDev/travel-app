@@ -42,9 +42,9 @@ const Register = ( props ) => {
         event.preventDefault()
         if (Object.keys(errors).length === 0) {
             try {
-                const response = await axios.post("http://localhost:3001/users/register", form)
+                const response = await axios.post("/users/register", form)
                 if(response.data === "User alredy exits") {
-                    alert("Ya estás registrado/a con ese correo correo electrónico")
+                    alert("Ya estás registrado/a con ese correo electrónico")
                     navigate("/ingresar")
                 } else {
                     alert("Registro exitoso")

@@ -10,6 +10,9 @@ import Detail from "./components/detail/Detail";
 import Footer from "./components/footer/Footer";
 import Register from "./components/register/Register";
 
+axios.defaults.baseURL = "http://localhost:3001"
+//axios.defaults.baseURL = ""
+
 function App() {
 
   const [ data, setData ] = useState(null)
@@ -21,7 +24,7 @@ function App() {
   useEffect(() => {
     const axiosData = async () => {
       try {
-        const response = await axios("http://localhost:3001/travels")
+        const response = await axios("/travels")
         if(response.status > 400) {
           throw new Error ("No se pudo obtener la data")
         }

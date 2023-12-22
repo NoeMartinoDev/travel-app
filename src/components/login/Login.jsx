@@ -51,7 +51,7 @@ const Login = ( props ) => {
           //   navigate("/")
           // } else alert("Datos incorrectos")
           try {
-            const response = await axios.post("http://localhost:3001/users/login", form)
+            const response = await axios.post("/users/login", form)
             if(response.data.error === "User not found") {
               alert("No estás registrado, por favor, registrate para continuar")
               navigate("/registro")

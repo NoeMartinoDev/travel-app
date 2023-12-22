@@ -47,7 +47,7 @@ const FormExp = (props) => {
         if (Object.keys(errors).length === 0) {
             //props.setData([...props.data, {...form, id: props.data.length + 1, date: new Date().getFullYear()}])
             try {
-              const response = await axios.post("http://localhost:3001/travels", form)
+              const response = await axios.post("/travels", form)
               if(response.status > 400) {
                 throw new Error ("No se pudo obtener la data")
               } else {

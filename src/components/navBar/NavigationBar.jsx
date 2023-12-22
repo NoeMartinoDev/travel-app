@@ -31,7 +31,7 @@ const NavigationBar = (props) => {
     // if (results.length === 0) alert ("No hay resultados")
     // if(location.pathname !== "/") navigate("/")
       try {
-        const response = await axios(`http://localhost:3001/travels?name=${exp}`)
+        const response = await axios(`/travels?name=${exp}`)
         if(response.data.error) alert ("No hay resultados")
         else {
           props.setFilteredData(response.data)

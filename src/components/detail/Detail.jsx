@@ -22,7 +22,7 @@ const Detail = () => {
     useEffect(() => {
       const axiosData = async () => {
         try {
-          const response = await axios(`http://localhost:3001/travels/${id}`)
+          const response = await axios(`/travels/${id}`)
           if(response.status > 400) {
             throw new Error ("No se pudo obtener la data")
           }
