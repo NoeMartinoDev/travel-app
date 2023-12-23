@@ -10,8 +10,8 @@ import Detail from "./components/detail/Detail";
 import Footer from "./components/footer/Footer";
 import Register from "./components/register/Register";
 
-axios.defaults.baseURL = "http://localhost:3001"
-//axios.defaults.baseURL = ""
+//axios.defaults.baseURL = "http://localhost:3001"
+axios.defaults.baseURL = "https://travel-app-back.vercel.app"
 
 function App() {
 
